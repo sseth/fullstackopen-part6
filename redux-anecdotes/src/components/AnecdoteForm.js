@@ -1,22 +1,18 @@
 import { useDispatch } from 'react-redux';
+
 import { newAnecdote } from '../reducers/anecdoteReducer';
-import { setNotif, clearNotif } from '../reducers/notificationReducer';
+import { setNotification } from '../reducers/notificationReducer';
 
 const AnecdoteForm = () => {
   const dispatch = useDispatch();
-  const createAnecdote = (e) => {
+  const createAnecdote = async (e) => {
     e.preventDefault();
+
     const content = e.target.content.value;
     e.target.content.value = '';
+
     dispatch(newAnecdote(content));
-    dispatch(
-      setNotif({
-        text: `Added new note: '${
-          content.length < 40 ? content : content.substring(0, 41) + '...'
-        }'`,
-        timer: setTimeout(() => dispatch(clearNotif()), 5000)
-      })
-    );
+    dispatch(setNotification('Added new note:', content, 5));
   };
 
   return (
