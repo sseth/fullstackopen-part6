@@ -9,7 +9,7 @@ const AnecdoteList = () => {
   const anecdotes = useSelector((state) =>
     state.anecdotes
       .filter((a) => a.content.includes(state.filter))
-      .sort((a, b) => a.votes - b.votes)
+      .sort((a, b) => b.votes - a.votes)
   );
 
   const addVote = (a) => {
